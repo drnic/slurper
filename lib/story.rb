@@ -7,6 +7,7 @@ class Story < ActiveResource::Base
   end
 
   self.site = "http://www.pivotaltracker.com/services/v3/projects/#{config['project_id']}"
+  self.proxy = config['proxy'] if not config['proxy'].nil?
   headers['X-TrackerToken'] = config.delete("token")
 
   def prepare
