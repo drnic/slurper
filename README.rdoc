@@ -28,6 +28,7 @@ Slurper requires a slurper_config.yml file in your working directory. This file 
   token: 123abc123abc123abc
   requested_by: Jane Stakeholder
   proxy: http://mycorporateproxy:8080
+  protocol: https
 
 The project_id tells tracker which project to add your stories to. It can be found on the project settings or the url for the project.
 

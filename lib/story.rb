@@ -5,10 +5,14 @@ class Story < ActiveResource::Base
   def self.config
     @@config ||= YAML.load_file('slurper_config.yml')
   end
-
-  self.site = "http://www.pivotaltracker.com/services/v3/projects/#{config['project_id']}"
+  
+  def self.protocol
+    @protocol ||= config.delete('protocol') || 'http'
+  end
+  
+  self.site = "#{protocol}://www.pivotaltracker.com/services/v3/projects/#{config['project_id']}"
   self.proxy = config['proxy'] if not config['proxy'].nil?
-  headers['X-TrackerToken'] = config.delete("token")
+  headers['X-TrackerToken'] = config.delete('token')
 
   def prepare
     scrub_description
@@ -31,5 +35,5 @@ class Story < ActiveResource::Base
       self.attributes["requested_by"] = Story.config["requested_by"]
     end
   end
-
+  
 end
